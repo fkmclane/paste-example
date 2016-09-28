@@ -34,7 +34,9 @@ MVC is short for Model-View-Controller. It is a paradigm for creating applicatio
 
 ## Django Is A Bit Different
 
-In Django, what we call the "view" is called a "template", what we call the "controller" is called a "view". Django generally regards itself as an "MTV" framework, or model, template, view, to accomodate this.
+* what we call the "view", Django calls a "template"
+* what we call the "controller", Django calls a "view"
+* Django generally regards itself as an "MTV" framework, or model, template, view, to accomodate this
 
 
 

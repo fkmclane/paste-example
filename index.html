@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> MVC + Django + Web Technologies
+</title>
+
+		<link rel="stylesheet" href="/reveal/css/reveal.css">
+		<link rel="stylesheet" href="/reveal/css/theme/blood.css">
+
+		<!-- theme for code highlighting -->
+		<link rel="stylesheet" href="/reveal/lib/css/zenburn.css">
+
+		<!-- printing from pdf -->
+		<script>
+			var link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match(/print-pdf/gi) ? '/reveal/css/print/pdf.css' : '/reveal/css/print/paper.css';
+			document.getElementsByTagName('head')[0].appendChild(link);
+		</script>
+
+		<!-- multiplexing -->
+		<script>
+			var multiplex = {
+				enabled: window.location.search.match(/receiver/gi) ? false : true,
+				secret: window.location.search.match(/master/gi) ? 'prompt' : null,
+				id: 'load',
+				server: 'https://reveal.fooster.io'
+			};
+		</script>
+
+		<!--[if lt IE 9]>
+			<script src="/lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- make h1 font size a little smaller -->
+		<style>
+			.reveal h1 {
+				font-size: 3.44em;
+			}
+		</style>
+
+		<!-- HTTPS JavaScript redirect -->
+		<script>
+		    if (window.location.protocol != "https:")
+			window.location.protocol = "https";
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- source markdown file -->
+				<section data-markdown="django.md" data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"></section>
+			</div>
+		</div>
+
+		<!-- source and configure reveal.js -->
+		<script src="/reveal/lib/js/head.min.js"></script>
+		<script src="/reveal/js/reveal.js"></script>
+		<script>
+			var init = function() {
+				// base dependencies
+				var dependencies = [
+					// classList shim
+					{ src: '/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+
+					// markdown
+					{ src: '/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+					{ src: '/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+
+					// syntax highlight for <code> elements
+					{ src: '/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+
+					// zoom in and out with alt+click
+					{ src: '/reveal/plugin/zoom-js/zoom.js', async: true },
+
+					// speaker notes
+					{ src: '/reveal/plugin/notes/notes.js', async: true },
+
+					// MathJax
+					{ src: '/reveal/plugin/math/math.js', async: true },
+				]
+
+				if (multiplex['enabled']) {
+					// multiplex
+					dependencies.push({ src: '/reveal/lib/js/socket.io.js', async: true });
+					if (multiplex['secret'] === null)
+						dependencies.push({ src: '/reveal/plugin/multiplex/client.js', async: true });
+					else
+						dependencies.push({ src: '/reveal/plugin/multiplex/master.js', async: true });
+				}
+
+				// create reveal options
+				var reveal = {
+					history: true,
+					dependencies: dependencies
+				}
+
+				if (multiplex['enabled']) {
+					// add multiplex information
+					reveal['multiplex'] = {
+						secret: multiplex['secret'],
+						id: multiplex['id'],
+						url: multiplex['server']
+					}
+				}
+
+				Reveal.initialize(reveal);
+			}
+
+			// determine multiplex information
+			if (multiplex['enabled'] && multiplex['secret'] === 'prompt') {
+				multiplex['secret'] = prompt('Enter the secret token to control this presentation.');
+				if (multiplex['secret'] === '')
+					multiplex['secret'] = null;
+			}
+
+			if (multiplex['enabled'] && multiplex['id'] === 'load') {
+				var xhr = new XMLHttpRequest();
+
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === XMLHttpRequest.DONE) {
+						if (xhr.status === 200 || xhr.status === 304)
+							multiplex['id'] = xhr.responseText;
+						else
+							multiplex['enabled'] = false
+
+						init();
+					}
+				};
+
+				xhr.open('GET', multiplex['server'] + '/id?presentation=webapps%2Fdjango', true);
+
+				xhr.send();
+			}
+			else {
+				init();
+			}
+		</script>
+	</body>
+</html>

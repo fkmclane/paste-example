@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Paste™</title>
+
+		<script src="//cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js"></script>
+
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css"/>
+		<script src="//cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+		<style>
+			main {
+				margin-top: 7em;
+			}
+
+			.created {
+				color: green;
+				padding-right: 1em;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="ui fixed inverted menu">
+			<nav class="ui container">
+				<a class="header item" href="/">Paste™</a>
+				<a class="item" href="/latest">Latest</a>
+			</nav>
+		</header>
+		<main class="ui main text container">
+			<h1 class="ui header">Welcome to Paste™!</h1>
+
+			<h2 class="ui header">Create a new paste</h2>
+
+			{% if link %}
+			<div class="ui text"><span class="created">Created at:</span><div class="ui action input"><input id="link" value="{{ link }}" type="text"><button onclick="document.getElementById('link').select(); document.execCommand('copy');" class="ui teal right labeled icon button"><i class="copy icon"></i>Copy</button></div>
+			{% endif %}
+
+			<form method="post" class="ui form">
+				{% csrf_token %}
+
+				<div class="field">
+					<label>Name</label>
+					<input name="name" placeholder="Name" type="text">
+				</div>
+
+				<div class="field">
+					<label>Language</label>
+					<div class="ui selection dropdown">
+						<input name="language" type="hidden">
+						<i class="dropdown icon"></i>
+						<div class="default text">Language</div>
+						<div class="menu">
+							<div class="item" data-value="Python">Python</div>
+							<div class="item" data-value="C#">C#</div>
+							<div class="item" data-value="C">C</div>
+							<div class="item" data-value="C++">C++</div>
+							<div class="item" data-value="Java">Java</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<label>Expires</label>
+					<div class="ui selection dropdown">
+						<input name="expires" type="hidden">
+						<i class="dropdown icon"></i>
+						<div class="default text">Expires</div>
+						<div class="menu">
+							<div class="item" data-value="1">1 Days</div>
+							<div class="item" data-value="2">2 Days</div>
+							<div class="item" data-value="3">3 Days</div>
+							<div class="item" data-value="4">4 Days</div>
+							<div class="item" data-value="5">5 Days</div>
+							<div class="item" data-value="6">6 Days</div>
+							<div class="item" data-value="7">7 Days</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<label>Code</label>
+					<textarea name="code"></textarea>
+				</div>
+
+				<button class="ui button" type="submit">Submit</button>
+			</form>
+		</main>
+
+		<script>
+			$('.ui.dropdown').dropdown();
+		</script>
+	</body>
+</html>

@@ -1,7 +1,8 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django.shortcuts import get_object_or_404, render
 from django.template import loader
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 
@@ -30,7 +31,7 @@ def index(request):
         except ValueError:
             days = 7
 
-        data['expires'] = datetime.now() + timedelta(days=days)
+        data['expires'] = timezone.now() + timedelta(days=days)
 
         data['code'] = request.POST['code']
 

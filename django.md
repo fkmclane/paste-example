@@ -1,4 +1,4 @@
-# MVC + Django + Web Technologies
+# Django + Web Technologies
 
 By: Foster McLane
 

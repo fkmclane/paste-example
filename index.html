@@ -4,18 +4,18 @@
 		<title> MVC + Django + Web Technologies
 </title>
 
-		<link rel="stylesheet" href="/reveal/css/reveal.css">
-		<link rel="stylesheet" href="/reveal/css/theme/blood.css">
+		<link rel="stylesheet" href="/paste-example/reveal/css/reveal.css">
+		<link rel="stylesheet" href="/paste-example/reveal/css/theme/blood.css">
 
 		<!-- theme for code highlighting -->
-		<link rel="stylesheet" href="/reveal/lib/css/zenburn.css">
+		<link rel="stylesheet" href="/paste-example/reveal/lib/css/zenburn.css">
 
 		<!-- printing from pdf -->
 		<script>
 			var link = document.createElement('link');
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
-			link.href = window.location.search.match(/print-pdf/gi) ? '/reveal/css/print/pdf.css' : '/reveal/css/print/paper.css';
+			link.href = window.location.search.match(/print-pdf/gi) ? '/paste-example/reveal/css/print/pdf.css' : '/paste-example/reveal/css/print/paper.css';
 			document.getElementsByTagName('head')[0].appendChild(link);
 		</script>
 
@@ -55,39 +55,39 @@
 		</div>
 
 		<!-- source and configure reveal.js -->
-		<script src="/reveal/lib/js/head.min.js"></script>
-		<script src="/reveal/js/reveal.js"></script>
+		<script src="/paste-example/reveal/lib/js/head.min.js"></script>
+		<script src="/paste-example/reveal/js/reveal.js"></script>
 		<script>
 			var init = function() {
 				// base dependencies
 				var dependencies = [
 					// classList shim
-					{ src: '/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '/paste-example/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
 
 					// markdown
-					{ src: '/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-					{ src: '/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+					{ src: '/paste-example/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+					{ src: '/paste-example/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
 
 					// syntax highlight for <code> elements
-					{ src: '/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '/paste-example/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 
 					// zoom in and out with alt+click
-					{ src: '/reveal/plugin/zoom-js/zoom.js', async: true },
+					{ src: '/paste-example/reveal/plugin/zoom-js/zoom.js', async: true },
 
 					// speaker notes
-					{ src: '/reveal/plugin/notes/notes.js', async: true },
+					{ src: '/paste-example/reveal/plugin/notes/notes.js', async: true },
 
 					// MathJax
-					{ src: '/reveal/plugin/math/math.js', async: true },
+					{ src: '/paste-example/reveal/plugin/math/math.js', async: true },
 				]
 
 				if (multiplex['enabled']) {
 					// multiplex
-					dependencies.push({ src: '/reveal/lib/js/socket.io.js', async: true });
+					dependencies.push({ src: '/paste-example/reveal/lib/js/socket.io.js', async: true });
 					if (multiplex['secret'] === null)
-						dependencies.push({ src: '/reveal/plugin/multiplex/client.js', async: true });
+						dependencies.push({ src: '/paste-example/reveal/plugin/multiplex/client.js', async: true });
 					else
-						dependencies.push({ src: '/reveal/plugin/multiplex/master.js', async: true });
+						dependencies.push({ src: '/paste-example/reveal/plugin/multiplex/master.js', async: true });
 				}
 
 				// create reveal options

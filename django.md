@@ -34,7 +34,7 @@ MVC is short for Model-View-Controller. It is a paradigm for creating applicatio
 
 ## Django Is A Bit Different
 
-In Django, what we call the "view" is a "template" in Django, what we call the "controller" is more like a "view" in Django. Django generally regards itself as an "MTV" framework, or model, template, view, to accomodate this.
+In Django, what we call the "view" is called a "template", what we call the "controller" is called a "view". Django generally regards itself as an "MTV" framework, or model, template, view, to accomodate this.
 
 
 
@@ -52,7 +52,7 @@ Go ahead and start a website with a witty name from the audience.
 
 ## Applications
 
-* a website can have multiple webaps under particular URL namespaces
+* a website can have multiple webapps under particular URL namespaces
 * a webapp can also be shared between websites
 
 Note:
@@ -71,7 +71,7 @@ Ask the audience what information they would like in the pastebin. Give a few ob
 
 ## Admin
 
-* the admin site allows an administrator to modify website data
+* allows an administrator to modify website data
 * gives direct access to the database in a friendly format
 
 Note:
@@ -106,19 +106,25 @@ Ask audience what context we'll need for the "paste" view.
 * between the tags are a combination of more tags and possibly text
 
 ```html
-<p>Some <span>HTML</span> text with an <img src="img.png" alt="image"/></p>
+<p>Some <span>HTML</span> with an <img src="img.png" alt="image"/></p>
 ```
 
 
 ## Common Tags
 
 * html - document root
-
 * head - heading information about document
-* title - title of the document (only in head)
-* style - style information about document (usually only in head)
-
 * body - displayed content of document
+
+
+## Head Tags
+
+* title - title of the document
+* style - style information about document
+
+
+## Body Tags
+
 * div - divider and general content holder
 * p - paragraph
 * input - user input
@@ -138,7 +144,8 @@ p {
 }
 </style>
 
-<p>The 'p' tag indicates that this is a paragraph and the above CSS indicates that all paragraphs should be red.</p>
+<p>The 'p' tag indicates that this is a paragraph and
+the above CSS indicates that all paragraphs should be red.</p>
 ```
 
 Note:
@@ -158,6 +165,7 @@ We won't do any scripting (except for the dropdowns) so we will not worry too mu
 
 # Creating the Pastebin
 
+
 ## Model
 
 We have already created the model, but is it complete?
@@ -168,7 +176,9 @@ Make sure to add remaining information to the model and run migrations.
 
 ## Templates
 
-What templates will we need? (hint: What views will we have?)
+What templates will we need?
+
+(hint: What views will we have?)
 
 What context will we need?
 
@@ -191,6 +201,10 @@ Create GET views then show how to get POST data from an HTML form.
 ## Simple Construction
 
 ```python
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
+
 lexer = get_lexer_by_name(paste.language, stripall=True)
 formatter = HtmlFormatter(linenos=True)
 
@@ -240,6 +254,7 @@ Ask what the relevant pages are (basically whether they want admin or not there)
 ## Latest Page
 
 * needs a list
+* needs metadata
 
 
 ## Index Page
@@ -250,6 +265,9 @@ Ask what the relevant pages are (basically whether they want admin or not there)
 
 
 # What About Deleting Expired Entries?
+
+
+## A Solution
 
 There is no good way (yet) in Django to run periodic functions, but we can create a "view" that runs periodic functions and can be CURLed from a crontab.
 

@@ -1,7 +1,6 @@
 from datetime import timedelta
 
 from django.shortcuts import get_object_or_404, render
-from django.template import loader
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
@@ -11,6 +10,7 @@ from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 
 from .models import Paste
+
 
 def index(request):
     link = None
@@ -40,20 +40,22 @@ def index(request):
 
         link = request.scheme + '://' + request.META['HTTP_HOST'] + request.path + str(paste.id)
 
-    context ={
+    context = {
         'link': link,
     }
 
     return render(request, 'index.html', context)
 
+
 def latest(request):
     latest = Paste.objects.order_by('-date')[:20]
 
-    context ={
+    context = {
         'latest': latest,
     }
 
     return render(request, 'latest.html', context)
+
 
 def prune(request):
     deletions = []
@@ -67,6 +69,7 @@ def prune(request):
 
     return HttpResponse('Pruned')
 
+
 def paste(request, paste_id):
     paste = get_object_or_404(Paste, id=paste_id)
 
@@ -78,7 +81,7 @@ def paste(request, paste_id):
     except:
         highlighted = paste.code
 
-    context ={
+    context = {
         'pygments': HtmlFormatter().get_style_defs('.highlight'),
         'date': paste.date,
         'name': paste.name,
